@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Doc') {
         steps {
-          sh 'mvn javadoc:javadoc'
+          sh 'mvn javadoc:jar'
         }
     }
     stage('pmd') {
@@ -18,7 +18,7 @@ pipeline {
     }
     stage('Test report'){
       steps {
-        junit 'target/surefire-reports/*.xml'
+        sh 'mvn surefire-report:xml'
       }
     }
   }
@@ -28,7 +28,7 @@ pipeline {
       archiveArtifacts artifacts: '**/target/site/**', fingerprint: true
       archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
       archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
-        archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', fingerprint: true
+        archiveArtifacts artifacts: '**/target/**/*.xml', fingerprint: true
     }
   }
 }
