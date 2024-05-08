@@ -18,7 +18,8 @@ pipeline {
     }
     stage('Test report'){
       steps {
-        sh 'mvn surefire-report:report'
+        sh 'mvn test'
+        junit 'target/surefire-reports/*.xml'
       }
     }
   }
@@ -28,7 +29,7 @@ pipeline {
       archiveArtifacts artifacts: '**/target/site/**', fingerprint: true
       archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
       archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
-      archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', fingerprint: true
+      archiveArtifacts artifacts: '**/target/**/*.xml', fingerprint: true
     }
   }
 }
