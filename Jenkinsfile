@@ -18,7 +18,7 @@ pipeline {
     }
     stage('Test report'){
       steps {
-        junit 'target/surefire-reports/*'
+        junit 'target/surefire-reports/*.xml'
       }
     }
   }
@@ -28,6 +28,7 @@ pipeline {
       archiveArtifacts artifacts: '**/target/site/**', fingerprint: true
       archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
       archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
+        archiveArtifacts artifacts: '**/target/*.xml', fingerprint: true
     }
   }
 }
